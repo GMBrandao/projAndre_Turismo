@@ -143,28 +143,21 @@ namespace projAndre_Turismo.Services
             return tickets;
         }
 
-        //public int FindTicket(Ticket ticket)
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    sb.Append("select cast(h.Id as int) from Hotel h ");
-        //    sb.Append("inner join Address a on a.Street = @Street AND a.Number = @Number ");
-        //    sb.Append("AND a.Neighborhood = @Neighborhood AND a.ZipCode = @ZipCode ");
-        //    sb.Append("AND a.Complement = @Complement right join City ct on ct.Description = @CityDescription ");
-        //    sb.Append("WHERE h.Name = @Name AND h.Value = @Value ");
+        public int FindTicket(Ticket ticket)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("select cast(t.Id as int) from Ticket t ");
+            sb.Append("WHERE t.IdOriginAddress = @Origin AND t.IdDestinationAddress = @Destination AND ");
+            sb.Append("t.IdClient = @Client");
 
-        //    SqlCommand commandSelect = new(sb.ToString(), conn);
+            SqlCommand commandSelect = new(sb.ToString(), conn);
 
-        //    commandSelect.Parameters.Add(new SqlParameter("@Name", ticket.Name));
-        //    commandSelect.Parameters.Add(new SqlParameter("@Value", ticket.Value));
+            
+            commandSelect.Parameters.Add(new SqlParameter("@Origin", new AddressController().FindAddress(ticket.Origin)));
+            commandSelect.Parameters.Add(new SqlParameter("@Destination", new AddressController().FindAddress(ticket.Destination)));
+            commandSelect.Parameters.Add(new SqlParameter("@Client", new ClientController().FindClient(ticket.Client)));
 
-        //    commandSelect.Parameters.Add(new SqlParameter("@Street", ticket.Address.Street));
-        //    commandSelect.Parameters.Add(new SqlParameter("@Number", hotel.Address.Number));
-        //    commandSelect.Parameters.Add(new SqlParameter("@Neighborhood", hotel.Address.Neighborhood));
-        //    commandSelect.Parameters.Add(new SqlParameter("@ZipCode", hotel.Address.ZipCode));
-        //    commandSelect.Parameters.Add(new SqlParameter("@CityDescription", hotel.Address.City.Description));
-        //    commandSelect.Parameters.Add(new SqlParameter("@Complement", hotel.Address.Complement));
-
-        //    return (int)commandSelect.ExecuteScalar();
-        //}
+            return (int) commandSelect.ExecuteScalar();
+        }
     }
 }

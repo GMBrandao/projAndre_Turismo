@@ -20,9 +20,9 @@ namespace projAndre_Turismo.Controllers
             return new TicketService().FindAll();
         }
 
-        //public int FindHotel(Ticket ticket)
-        //{
-        //    return new TicketService().FindTicket(ticket);
-        //}
+        public int FindTicket(Ticket ticket)
+        {
+            return new TicketService().FindTicket(ticket);
+        }
     }
 }

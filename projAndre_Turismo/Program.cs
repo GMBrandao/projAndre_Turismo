@@ -102,5 +102,6 @@ internal class Program
         //Ticket
         //Console.WriteLine((new TicketController().Insert(ticket) ? "Passagem Inserida" : "Erro ao inserir"));
         new TicketController().FindAll().ForEach(t => Console.WriteLine(t));
+        Console.WriteLine(new TicketController().FindTicket(ticket));
     }
 }
