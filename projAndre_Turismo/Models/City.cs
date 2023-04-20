@@ -12,5 +12,10 @@ namespace projAndre_Turismo.Models
         public string Description { get; set; }
         public DateTime RegisterDate { get; set; }
 
+        public override string ToString()
+        {
+            return $"Id: {this.Id}\nCity: {this.Description}";
+        }
+
     }
 }

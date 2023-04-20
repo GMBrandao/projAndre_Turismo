@@ -10,9 +10,14 @@ namespace projAndre_Turismo.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Phone1 { get; set; }
-        public string Phone2 { get; set; }
+        public string Phone { get; set; }
         public Address Address { get; set; }
         public DateTime RegisterDate { get; set; }
+
+        public override string ToString()
+        {
+            return $"\nId: {this.Id}\nName: {this.Name}\nPhone: {this.Phone}\n" +
+                $"Address: {this.Address}\nRegister Date: {this.RegisterDate}";
+        }
     }
 }

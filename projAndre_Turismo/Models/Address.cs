@@ -19,7 +19,7 @@ namespace projAndre_Turismo.Models
 
         public override string ToString()
         {
-            return $"{this.Street}, {this.Number} - {this.ZipCode} - {this.Neighborhood} - {this.City}";
+            return $"{this.Street}, {this.Number} - {this.ZipCode} - {this.Neighborhood} - {this.City.Description}";
         }
     }
 }
