@@ -78,6 +78,15 @@ internal class Program
             Value = 452.33
         };
 
+        Package package = new()
+        {
+            Hotel = hotel,
+            Ticket = ticket,
+            Client = client,
+            Value = 2013.54,
+            RegisterDate = DateTime.Now
+        };
+
         //City
         //string strCity = (new CityController().Insert(city2) ? "Cidade Inserida" : "Erro ao inserir");
         //Console.WriteLine(strCity);
@@ -101,7 +110,9 @@ internal class Program
 
         //Ticket
         //Console.WriteLine((new TicketController().Insert(ticket) ? "Passagem Inserida" : "Erro ao inserir"));
-        new TicketController().FindAll().ForEach(t => Console.WriteLine(t));
-        Console.WriteLine(new TicketController().FindTicket(ticket));
+        //new TicketController().FindAll().ForEach(t => Console.WriteLine(t));
+
+        //Package
+
     }
 }
