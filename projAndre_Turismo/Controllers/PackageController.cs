@@ -20,6 +20,11 @@ namespace projAndre_Turismo.Controllers
             return new PackageService().FindAll();
         }
 
+        public bool Update(int Id, Package package)
+        {
+            return new PackageService().Update(Id, package);
+        }
+
         public bool Delete(int Id)
         {
             return new PackageService().Delete(Id);

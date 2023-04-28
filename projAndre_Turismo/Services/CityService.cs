@@ -83,6 +83,33 @@ namespace projAndre_Turismo.Services
             return (int)commandSelect.ExecuteScalar();
         }
 
+        public bool Update(int Id, City city) 
+        {
+            bool status = false;
+
+            string commandUpdate = "UPDATE City SET Description = @Description WHERE Id = @Id";
+
+            try
+            {
+                SqlCommand Update = new(commandUpdate, conn);
+                Update.Parameters.Add(new SqlParameter("@Description", city.Description));
+                Update.Parameters.Add(new SqlParameter("@Id", Id));
+                Update.ExecuteNonQuery();
+                status = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return status;
+        }
+
         public bool Delete(int Id)
         {
             bool status = false;

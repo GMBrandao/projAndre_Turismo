@@ -148,7 +148,7 @@ namespace projAndre_Turismo.Services
             StringBuilder sb = new StringBuilder();
             sb.Append("select cast(t.Id as int) from Ticket t ");
             sb.Append("WHERE t.IdOriginAddress = @Origin AND t.IdDestinationAddress = @Destination AND ");
-            sb.Append("t.IdClient = @Client");
+            sb.Append("t.IdClient = @Client AND Value = @Value");
 
             SqlCommand commandSelect = new(sb.ToString(), conn);
 
@@ -156,8 +156,52 @@ namespace projAndre_Turismo.Services
             commandSelect.Parameters.Add(new SqlParameter("@Origin", new AddressController().FindAddress(ticket.Origin)));
             commandSelect.Parameters.Add(new SqlParameter("@Destination", new AddressController().FindAddress(ticket.Destination)));
             commandSelect.Parameters.Add(new SqlParameter("@Client", new ClientController().FindClient(ticket.Client)));
+            commandSelect.Parameters.Add(new SqlParameter("@Value", ticket.Value));
 
             return (int) commandSelect.ExecuteScalar();
+        }
+
+        public bool Update(int Id, Ticket ticket)
+        {
+            bool status = false;
+
+            try
+            {
+                Address origin = ticket.Origin;
+                Address destination = ticket.Destination;
+                Client client = ticket.Client;
+
+                StringBuilder commandUpdate = new();
+
+                commandUpdate.Append("UPDATE Client SET ");
+                commandUpdate.Append("IdOriginAddress = @IdOriginAddress, IdDestinationAddress = @IdDestinationAddress, ");
+                commandUpdate.Append("Client = @Client, Date = @Date, Value = @Value ");
+                commandUpdate.Append("WHERE Id = @Id");
+
+                SqlCommand Update = new(commandUpdate.ToString(), conn);
+
+                Update.Parameters.Add(new SqlParameter("@IdOriginAddress", new AddressController().FindAddress(origin)));
+                Update.Parameters.Add(new SqlParameter("@IdDestinationAddress", new AddressController().FindAddress(destination)));
+                Update.Parameters.Add(new SqlParameter("@Client", new ClientController().FindClient(client)));
+                Update.Parameters.Add(new SqlParameter("@Date", ticket.Date));
+                Update.Parameters.Add(new SqlParameter("@Value", ticket.Value));
+
+                Update.Parameters.Add(new SqlParameter("@Id", Id));
+                Update.ExecuteNonQuery();
+
+                status = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return status;
         }
 
         public bool Delete(int Id)

@@ -214,6 +214,50 @@ namespace projAndre_Turismo.Services
             return packages;
         }
 
+        public bool Update(int Id, Package package)
+        {
+            bool status = false;
+
+            try
+            {
+                Ticket ticket = package.Ticket;
+                Client client = package.Client;
+                Hotel hotel = package.Hotel;
+                Address addressClient = client.Address;
+                Address addressHotel = hotel.Address;
+
+                StringBuilder commandUpdate = new();
+
+                commandUpdate.Append("UPDATE Client SET ");
+                commandUpdate.Append("IdTicket = @Ticket, IdHotel = @Hotel, ");
+                commandUpdate.Append("IdClient = @Client, Value = @Value ");
+                commandUpdate.Append("WHERE Id = @Id");
+
+                SqlCommand Update = new(commandUpdate.ToString(), conn);
+
+                Update.Parameters.Add(new SqlParameter("@Hotel", new HotelController().FindHotel(hotel)));
+                Update.Parameters.Add(new SqlParameter("@Ticket", new TicketController().FindTicket(ticket)));
+                Update.Parameters.Add(new SqlParameter("@Client", new ClientController().FindClient(client)));
+                Update.Parameters.Add(new SqlParameter("@Value", package.Value));
+
+                Update.Parameters.Add(new SqlParameter("@Id", Id));
+                Update.ExecuteNonQuery();
+
+                status = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return status;
+        }
+
         public bool Delete(int Id)
         {
             bool status = false;

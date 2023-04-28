@@ -120,6 +120,44 @@ namespace projAndre_Turismo.Services
             return (int)commandSelect.ExecuteScalar();
         }
 
+        public bool Update(int Id, Client client)
+        {
+            bool status = false;
+
+            try
+            {
+                Address address = client.Address;
+
+                StringBuilder commandUpdate = new();
+
+                commandUpdate.Append("UPDATE Client SET ");
+                commandUpdate.Append("Name = @Name, Phone = @Phone, IdAddress = @IdAddress ");
+                commandUpdate.Append("WHERE Id = @Id");
+
+                SqlCommand Update = new(commandUpdate.ToString(), conn);
+
+                Update.Parameters.Add(new SqlParameter("@Name", client.Name));
+                Update.Parameters.Add(new SqlParameter("@Phone", client.Phone));
+                Update.Parameters.Add(new SqlParameter("@IdAddress", new AddressController().FindAddress(address)));
+
+                Update.Parameters.Add(new SqlParameter("@Id", Id));
+                Update.ExecuteNonQuery();
+
+                status = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return status;
+        }
+
         public bool Delete(int Id)
         {
             bool status = false;

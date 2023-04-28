@@ -111,6 +111,48 @@ namespace projAndre_Turismo.Services
             return (int)commandSelect.ExecuteScalar();
         }
 
+        public bool Update(int Id, Address address)
+        {
+            bool status = false;
+
+            try
+            {
+                City city = address.City;
+
+                StringBuilder commandUpdate = new();
+
+                commandUpdate.Append("UPDATE Address SET ");
+                commandUpdate.Append("Street = @Street, Number = @Number, Neighborhood = @Neighborhood, ");
+                commandUpdate.Append("ZipCode = @ZipCode, Complement = @Complement, IdCity = @IdCity ");
+                commandUpdate.Append("WHERE Id = @Id");
+
+                SqlCommand Update = new(commandUpdate.ToString(), conn);
+
+                Update.Parameters.Add(new SqlParameter("@Street", address.Street));
+                Update.Parameters.Add(new SqlParameter("@Number", address.Number));
+                Update.Parameters.Add(new SqlParameter("@Neighborhood", address.Neighborhood));
+                Update.Parameters.Add(new SqlParameter("@ZipCode", address.ZipCode));
+                Update.Parameters.Add(new SqlParameter("@Complement", address.Complement));
+                Update.Parameters.Add(new SqlParameter("@IdCity", new CityController().FindCity(city)));
+
+                Update.Parameters.Add(new SqlParameter("@Id", Id));
+                Update.ExecuteNonQuery();
+
+                status = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return status;
+        }
+
         public bool Delete(int Id)
         {
             bool status = false;

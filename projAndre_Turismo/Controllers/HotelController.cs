@@ -25,6 +25,11 @@ namespace projAndre_Turismo.Controllers
             return new HotelService().FindHotel(hotel);
         }
 
+        public bool Update(int Id, Hotel hotel)
+        {
+            return new HotelService().Update(Id, hotel);
+        }
+
         public bool Delete(int Id)
         {
             return new HotelService().Delete(Id);

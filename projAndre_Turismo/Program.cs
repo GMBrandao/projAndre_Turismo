@@ -9,6 +9,7 @@ internal class Program
     {
         Console.WriteLine("André Turismos");
 
+        #region Objects
         City city = new City()
         {
             Description = "São Paulo",
@@ -23,7 +24,7 @@ internal class Program
 
         City city3 = new()
         {
-            Description = "Ribeirão Preto",
+            Description = "Bauru",
             RegisterDate = DateTime.Now,
         };
 
@@ -93,53 +94,96 @@ internal class Program
             Value = 2013.54,
             RegisterDate = DateTime.Now
         };
+        #endregion
 
-        //City
+        #region City
+        ////Create
         //Console.WriteLine(new CityController().Insert(city3) ? "Cidade Inserida" : "Erro ao inserir");
+        ////Read
         //new CityController().FindAll().ForEach(c => Console.WriteLine(c));
+        ////Update
+        //Console.WriteLine("Digite o id da cidade a ser atualizada: ");
+        //int upd = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new CityController().Update(upd, city3) ? "Atualizado com sucesso" : "Erro ao atualizar");
+        ////Delete
         //Console.WriteLine("Digite o id da cidade a ser apagada: ");
         //int del = int.Parse(Console.ReadLine());
         //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        #endregion
 
-        //Address
+        #region Address
+        ////Create
         //Console.WriteLine(new AddressController().Insert(origin) ? "Endereço Inserido" : "Erro ao inserir");
+        ////Read
         //new AddressController().FindAll().ForEach(a => Console.WriteLine(a));
+        ////Update
+        //Console.WriteLine("Digite o id do endereço a ser atualizado: ");
+        //int upd = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new AddressController().Update(upd, address2) ? "Atualizado com sucesso" : "Erro ao atualizar");
+        ////Delete
         //Console.WriteLine("Digite o id do endereço a ser apagado: ");
         //int del = int.Parse(Console.ReadLine());
-        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        //Console.WriteLine(new AddressController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        #endregion
 
-
-
-        //Client
+        #region Client
+        ////Create
         //Console.WriteLine(new ClientController().Insert(client) ? "Cliente Inserido" : "Erro ao inserir");
+        ////Read
         //new ClientController().FindAll().ForEach(c => Console.WriteLine(c));
+        ////Update
+        //Console.WriteLine("Digite o id do cliente a ser atualizado: ");
+        //int upd = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new ClientController().Update(upd, client) ? "Atualizado com sucesso" : "Erro ao atualizar");
+        ////Delete
         //Console.WriteLine("Digite o id do cliente a ser apagado: ");
         //int del = int.Parse(Console.ReadLine());
-        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        //Console.WriteLine(new ClientController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        #endregion
 
-
-        //Hotel
+        #region Hotel
+        ////Create
         //Console.WriteLine((new HotelController().Insert(hotel) ? "Hotel Inserido" : "Erro ao inserir"));
+        ////Read
         //new HotelController().FindAll().ForEach(h => Console.WriteLine(h));
+        ////Update
+        //Console.WriteLine("Digite o id do hotel a ser atualizado: ");
+        //int upd = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new HotelController().Update(upd, hotel) ? "Atualizado com sucesso" : "Erro ao atualizar");
+        ////Delete
         //Console.WriteLine("Digite o id do hotel a ser apagado: ");
         //int del = int.Parse(Console.ReadLine());
-        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        //Console.WriteLine(new HotelController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        #endregion
 
-
-        //Ticket
+        #region Ticket
+        ////Create
         //Console.WriteLine((new TicketController().Insert(ticket) ? "Passagem Inserida" : "Erro ao inserir"));
+        ////Read
         //new TicketController().FindAll().ForEach(t => Console.WriteLine(t));
+        ////Update
+        //Console.WriteLine("Digite o id da passagem a ser atualizada: ");
+        //int upd = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new TicketController().Update(upd, ticket) ? "Atualizado com sucesso" : "Erro ao atualizar");
+        ////Delete
         //Console.WriteLine("Digite o id da passagem a ser apagado: ");
         //int del = int.Parse(Console.ReadLine());
-        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        //Console.WriteLine(new TicketController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        #endregion
 
-
-        //Package
+        #region Package
+        ////Create
         //Console.WriteLine((new PackageController().Insert(package) ? "Pacote Inserido" : "Erro ao inserir"));
+        ////Read
         //new PackageController().FindAll().ForEach(p => Console.WriteLine(p));
+        ////Update
+        //Console.WriteLine("Digite o id do pacote a ser atualizado: ");
+        //int upd = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new PackageController().Update(upd, package) ? "Atualizado com sucesso" : "Erro ao atualizar");
+        ////Delete
         //Console.WriteLine("Digite o id do pacote a ser apagado: ");
         //int del = int.Parse(Console.ReadLine());
-        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
-
+        //Console.WriteLine(new PackageController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+        #endregion
     }
 }

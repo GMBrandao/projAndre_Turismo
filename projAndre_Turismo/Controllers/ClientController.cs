@@ -25,6 +25,11 @@ namespace projAndre_Turismo.Controllers
             return new ClientService().FindClient(client);
         }
 
+        public bool Update(int Id, Client client)
+        {
+            return new ClientService().Update(Id, client);
+        }
+
         public bool Delete(int Id)
         {
             return new ClientService().Delete(Id);

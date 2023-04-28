@@ -25,6 +25,11 @@ namespace projAndre_Turismo.Controllers
             return new TicketService().FindTicket(ticket);
         }
 
+        public bool Update(int Id, Ticket ticket)
+        {
+            return new TicketService().Update(Id, ticket);
+        }
+
         public bool Delete(int Id)
         {
             return new TicketService().Delete(Id);
