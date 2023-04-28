@@ -12,7 +12,7 @@ namespace projAndre_Turismo.Services
 {
     public class PackageService
     {
-        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\adm\Documents\Aulas C#\projAndre_Turismo\Database\Travel.mdf;";
+        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\gabri\OneDrive\Documentos\Aulas C#\projAndre_Turismo\Database\Travel.mdf;";
         readonly SqlConnection conn;
 
         public PackageService()
@@ -27,8 +27,8 @@ namespace projAndre_Turismo.Services
 
             try
             {
-                string strInsert = "INSERT into Package (Hotel, Ticket, Value, Client, RegisterDate) " +
-                    "values (@Hotel, @Ticket, @Client, @Value, @RegisterDate)";
+                string strInsert = "INSERT into Package (IdHotel, IdTicket, Value, IdClient, RegisterDate) " +
+                    "values (@Hotel, @Ticket, @Value, @Client, @RegisterDate)";
 
                 SqlCommand commandInsert = new SqlCommand(strInsert, conn);
 
@@ -40,6 +40,7 @@ namespace projAndre_Turismo.Services
 
                 ticket = package.Ticket;
                 client = package.Client;
+                hotel = package.Hotel;
                 addressClient = client.Address;
                 addressHotel = hotel.Address;
 
@@ -71,10 +72,10 @@ namespace projAndre_Turismo.Services
 
             StringBuilder sb = new StringBuilder();
             sb.Append("select p.Id, p.Value as packageValue, p.RegisterDate as packageRegDate, ");
-            sb.Append("p.IdHotel, h.Name as hotelName, h.Value as hotelValue, h.IdAddress IdHotelAddress");
+            sb.Append("p.IdHotel, h.Name as hotelName, h.Value as hotelValue, h.IdAddress as IdHotelAddress, ");
             sb.Append("ah.Street as hotelStreet, ah.Number as hotelNumber, ah.Neighborhood as hotelNeighborhood, ");
             sb.Append("ah.ZipCode as hotelZipCode, ah.Complement as hotelComplement, ");
-            sb.Append("ah.IdCity as hotelIdCity, cth.Description as hotelDescription, ");
+            sb.Append("ah.IdCity as hotelIdCity, cth.Description as hotelCityDescription, ");
             sb.Append("p.IdClient, c.Name as clientName, c.Phone as clientPhone, ");
             sb.Append("c.IdAddress as IdClientAddress, ac.Street as clientStreet, ac.Neighborhood as clientNeighborhood, ");
             sb.Append("ac.ZipCode as clientZipCode, ac.Complement as clientComplement, ac.Number as clientNumber, ");
@@ -89,18 +90,19 @@ namespace projAndre_Turismo.Services
             sb.Append("t.IdClient as IdTicketClient, tc.Name as TicketClientName, tc.Phone as TicketClientPhone, ");
             sb.Append("tc.IdAddress as IdTicketClientAddress, tac.Street as TicketClientStreet, tac.Number as TicketClientNumber, ");
             sb.Append("tac.ZipCode as TicketClientZipCode, tac.Complement as TicketClientComplement, tac.Neighborhood as TicketClientNeighborhood, ");
-            sb.Append("tac.IdCity as TicketClientIdCity, tctc.Description as TicketClientCityDescription ");
+            sb.Append("tac.IdCity as TicketClientIdCity, tctc.Description as TicketClientCityDescription, ");
+            sb.Append("tc.RegisterDate as tClientRG, h.RegisterDate as hotelRG, c.RegisterDate as clientRG ");
             sb.Append("FROM Package p ");
             sb.Append("left join Hotel h on h.Id = p.IdHotel ");
             sb.Append("join Address ah on ah.Id = h.IdAddress join City cth on ah.IdCity = cth.Id ");
             sb.Append("left join Client c on c.Id = p.IdClient ");
             sb.Append("join Address ac on ac.Id = c.IdAddress join City ctc on ac.IdCity = ctc.Id ");
-            sb.Append("left join Ticket t on t.Id = pIdTicket ");
+            sb.Append("left join Ticket t on t.Id = p.IdTicket ");
             sb.Append("join Address ao on ao.Id = t.IdOriginAddress join City cto on ao.IdCity = cto.Id ");
             sb.Append("join Address ad on ad.Id = t.IdDestinationAddress join City ctd on ad.IdCity = ctd.Id ");
             sb.Append("join Client tc on tc.Id = t.IdClient ");
             sb.Append("join Address tac on tac.Id = tc.IdAddress join City tctc on tac.IdCity = tctc.Id ");
-            sb.Append("WHERE p.Client = c.Id AND p.IdTicket = t.Id AND p.IdHotel = h.Id");
+            sb.Append("WHERE p.IdClient = c.Id AND p.IdTicket = t.Id AND p.IdHotel = h.Id");
 
             SqlCommand commandSelect = new(sb.ToString(), conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
@@ -130,6 +132,7 @@ namespace projAndre_Turismo.Services
                 hotel.Id = (int)dr["IdHotel"];
                 hotel.Name = (string)dr["hotelName"];
                 hotel.Value = (double)(decimal)dr["hotelValue"];
+                hotel.RegisterDate = (DateTime)dr["hotelRG"];
                 hotelAddress.Id = (int)dr["IdHotelAddress"];
                 hotelAddress.Street = (string)dr["hotelStreet"];
                 hotelAddress.Number = (int)dr["hotelNumber"];
@@ -143,8 +146,9 @@ namespace projAndre_Turismo.Services
                 hotel.Address = hotelAddress;
 
                 client.Id = (int)dr["IdClient"];
-                client.Name = (string)dr["Name"];
-                client.Phone = (string)dr["Phone"];
+                client.Name = (string)dr["clientName"];
+                client.Phone = (string)dr["clientPhone"];
+                client.RegisterDate = (DateTime)dr["clientRG"];
                 clientAddress.Id = (int)dr["IdClientAddress"];
                 clientAddress.Street = (string)dr["clientStreet"];
                 clientAddress.Number = (int)dr["clientNumber"];
@@ -182,6 +186,7 @@ namespace projAndre_Turismo.Services
                 ticketClient.Id = (int)dr["IdTicketClient"];
                 ticketClient.Name = (string)dr["TicketClientName"];
                 ticketClient.Phone = (string)dr["TicketClientPhone"];
+                ticketClient.RegisterDate = (DateTime)dr["tClientRG"];
                 ticketClientAddress.Id = (int)dr["IdTicketClientAddress"];
                 ticketClientAddress.Street = (string)dr["TicketClientStreet"];
                 ticketClientAddress.Number = (int)dr["TicketClientNumber"];

@@ -11,7 +11,7 @@ namespace projAndre_Turismo.Services
 {
     public class AddressService
     {
-        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\adm\Documents\Aulas C#\projAndre_Turismo\Database\Travel.mdf;";
+        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\gabri\OneDrive\Documentos\Aulas C#\projAndre_Turismo\Database\Travel.mdf;";
         readonly SqlConnection conn;
 
         public AddressService()
@@ -92,13 +92,16 @@ namespace projAndre_Turismo.Services
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("select cast(a.Id as int) from Address a ");
-            sb.Append("right join City c on c.Description = @CityDescription ");
+            sb.Append("join City c on c.Description = @CityDescription ");
             sb.Append("WHERE a.Street = @Street AND a.Number = @Number ");
             sb.Append("AND a.Neighborhood = @Neighborhood AND a.ZipCode = @ZipCode ");
             sb.Append("AND a.Complement = @Complement");
 
             SqlCommand commandSelect = new(sb.ToString(), conn);
-            commandSelect.Parameters.Add(new SqlParameter("@CityDescription", address.City.Description));
+
+            City city = address.City;
+
+            commandSelect.Parameters.Add(new SqlParameter("@CityDescription", city.Description));
             commandSelect.Parameters.Add(new SqlParameter("@Street", address.Street));
             commandSelect.Parameters.Add(new SqlParameter("@Number", address.Number));
             commandSelect.Parameters.Add(new SqlParameter("@Neighborhood", address.Neighborhood));

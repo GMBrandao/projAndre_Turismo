@@ -1,6 +1,7 @@
 ﻿using projAndre_Turismo.Controllers;
 using projAndre_Turismo.Models;
 using projAndre_Turismo.Services;
+using System.Threading.Channels;
 
 internal class Program
 {
@@ -113,6 +114,7 @@ internal class Program
         //new TicketController().FindAll().ForEach(t => Console.WriteLine(t));
 
         //Package
-
+        //Console.WriteLine((new PackageController().Insert(package) ? "Pacote Inserido" : "Erro ao inserir"));
+        new PackageController().FindAll().ForEach(p => Console.WriteLine(p));
     }
 }

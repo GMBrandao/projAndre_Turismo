@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using projAndre_Turismo.Controllers;
@@ -11,7 +12,7 @@ namespace projAndre_Turismo.Services
 {
     public class HotelService
     {
-        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\adm\Documents\Aulas C#\projAndre_Turismo\Database\Travel.mdf;";
+        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\gabri\OneDrive\Documentos\Aulas C#\projAndre_Turismo\Database\Travel.mdf;";
         readonly SqlConnection conn;
 
         public HotelService()
@@ -99,22 +100,23 @@ namespace projAndre_Turismo.Services
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("select cast(h.Id as int) from Hotel h ");
-            sb.Append("inner join Address a on a.Street = @Street AND a.Number = @Number ");
-            sb.Append("AND a.Neighborhood = @Neighborhood AND a.ZipCode = @ZipCode ");
-            sb.Append("AND a.Complement = @Complement right join City ct on ct.Description = @CityDescription ");
-            sb.Append("WHERE h.Name = @Name AND h.Value = @Value ");
+            sb.Append("WHERE h.Name = @Name AND h.Value = @Value AND h.IdAddress = @Address");
 
             SqlCommand commandSelect = new(sb.ToString(), conn);
+
+            Address address = hotel.Address;
 
             commandSelect.Parameters.Add(new SqlParameter("@Name", hotel.Name));
             commandSelect.Parameters.Add(new SqlParameter("@Value", hotel.Value));
 
-            commandSelect.Parameters.Add(new SqlParameter("@Street", hotel.Address.Street));
-            commandSelect.Parameters.Add(new SqlParameter("@Number", hotel.Address.Number));
-            commandSelect.Parameters.Add(new SqlParameter("@Neighborhood", hotel.Address.Neighborhood));
-            commandSelect.Parameters.Add(new SqlParameter("@ZipCode", hotel.Address.ZipCode));
-            commandSelect.Parameters.Add(new SqlParameter("@CityDescription", hotel.Address.City.Description));
-            commandSelect.Parameters.Add(new SqlParameter("@Complement", hotel.Address.Complement));
+            commandSelect.Parameters.Add(new SqlParameter("@Address", new AddressController().FindAddress(address)));
+            //commandSelect.Parameters.Add(new SqlParameter("@Street", address.Street));
+            //commandSelect.Parameters.Add(new SqlParameter("@Number", address.Number));
+            //commandSelect.Parameters.Add(new SqlParameter("@Neighborhood", address.Neighborhood));
+            //commandSelect.Parameters.Add(new SqlParameter("@ZipCode", address.ZipCode));
+            //commandSelect.Parameters.Add(new SqlParameter("@CityDescription", city.Description));
+            //commandSelect.Parameters.Add(new SqlParameter("@Complement", address.Complement));
+
 
             return (int)commandSelect.ExecuteScalar();
         }

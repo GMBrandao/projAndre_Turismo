@@ -17,7 +17,7 @@ namespace projAndre_Turismo.Models
 
         public override string ToString()
         {
-            return $"Id:{this.Id}\nOrigin: {this.Origin}\nDestination {this.Destination}\nValue: {this.Value}\nDate: {this.Date}\nClient: {this.Client}\n";
+            return $"\nTicket:\nId:{this.Id}\nOrigin: {this.Origin}\nDestination {this.Destination}\nValue: {this.Value}\nDate: {this.Date}\nClient: {this.Client}\n";
         }
     }
 }
