@@ -19,5 +19,10 @@ namespace projAndre_Turismo.Controllers
         {
             return new PackageService().FindAll();
         }
+
+        public bool Delete(int Id)
+        {
+            return new PackageService().Delete(Id);
+        }
     }
 }

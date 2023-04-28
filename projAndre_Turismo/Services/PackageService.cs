@@ -213,5 +213,31 @@ namespace projAndre_Turismo.Services
 
             return packages;
         }
+
+        public bool Delete(int Id)
+        {
+            bool status = false;
+
+            string commandDelete = ("DELETE FROM Package WHERE Id = @Id");
+
+            try
+            {
+                SqlCommand Delete = new(commandDelete, conn);
+                Delete.Parameters.Add(new SqlParameter("@Id", Id));
+                Delete.ExecuteNonQuery();
+                status = true;
+            }
+            catch (Exception)
+            {
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
+        }
     }
 }

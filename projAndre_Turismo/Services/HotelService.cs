@@ -110,15 +110,34 @@ namespace projAndre_Turismo.Services
             commandSelect.Parameters.Add(new SqlParameter("@Value", hotel.Value));
 
             commandSelect.Parameters.Add(new SqlParameter("@Address", new AddressController().FindAddress(address)));
-            //commandSelect.Parameters.Add(new SqlParameter("@Street", address.Street));
-            //commandSelect.Parameters.Add(new SqlParameter("@Number", address.Number));
-            //commandSelect.Parameters.Add(new SqlParameter("@Neighborhood", address.Neighborhood));
-            //commandSelect.Parameters.Add(new SqlParameter("@ZipCode", address.ZipCode));
-            //commandSelect.Parameters.Add(new SqlParameter("@CityDescription", city.Description));
-            //commandSelect.Parameters.Add(new SqlParameter("@Complement", address.Complement));
-
 
             return (int)commandSelect.ExecuteScalar();
+        }
+
+        public bool Delete(int Id)
+        {
+            bool status = false;
+
+            string commandDelete = ("DELETE FROM Hotel WHERE Id = @Id");
+
+            try
+            {
+                SqlCommand Delete = new(commandDelete, conn);
+                Delete.Parameters.Add(new SqlParameter("@Id", Id));
+                Delete.ExecuteNonQuery();
+                status = true;
+            }
+            catch (Exception)
+            {
+                status = false;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return status;
         }
     }
 }

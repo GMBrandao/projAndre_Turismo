@@ -24,5 +24,10 @@ namespace projAndre_Turismo.Controllers
         {
             return new AddressService().FindAddress(address);
         }
+
+        public bool Delete(int Id)
+        {
+            return new AddressService().Delete(Id);
+        }
     }
 }

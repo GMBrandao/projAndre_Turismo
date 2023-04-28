@@ -24,5 +24,10 @@ namespace projAndre_Turismo.Controllers
         {
             return new TicketService().FindTicket(ticket);
         }
+
+        public bool Delete(int Id)
+        {
+            return new TicketService().Delete(Id);
+        }
     }
 }

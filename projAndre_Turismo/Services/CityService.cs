@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.FileIO;
 using projAndre_Turismo.Models;
 
 namespace projAndre_Turismo.Services
@@ -80,6 +81,33 @@ namespace projAndre_Turismo.Services
             commandSelect.Parameters.Add(new SqlParameter("@Description", city.Description));
 
             return (int)commandSelect.ExecuteScalar();
+        }
+
+        public bool Delete(int Id)
+        {
+            bool status = false;
+
+            string commandDelete = ("DELETE FROM City WHERE Id = @Id");
+
+            try 
+            {
+                SqlCommand Delete  = new(commandDelete, conn);
+                Delete.Parameters.Add(new SqlParameter("@Id", Id));
+                Delete.ExecuteNonQuery();
+                status = true;
+            } 
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                status = false;
+                throw;
+            } 
+            finally 
+            {
+                conn.Close();
+            }
+
+            return status;
         }
     }
 }

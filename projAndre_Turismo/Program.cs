@@ -21,6 +21,12 @@ internal class Program
             RegisterDate = DateTime.Now,
         };
 
+        City city3 = new()
+        {
+            Description = "Ribeirão Preto",
+            RegisterDate = DateTime.Now,
+        };
+
         Address address = new Address()
         {
             Street = "Rua 0",
@@ -89,32 +95,51 @@ internal class Program
         };
 
         //City
-        //string strCity = (new CityController().Insert(city2) ? "Cidade Inserida" : "Erro ao inserir");
-        //Console.WriteLine(strCity);
-        //var cities = new CityController().FindAll();
-        //cities.ForEach(c => Console.WriteLine(c));
+        //Console.WriteLine(new CityController().Insert(city3) ? "Cidade Inserida" : "Erro ao inserir");
+        //new CityController().FindAll().ForEach(c => Console.WriteLine(c));
+        //Console.WriteLine("Digite o id da cidade a ser apagada: ");
+        //int del = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
 
         //Address
-        //string strAddress = (new AddressController().Insert(origin) ? "Endereço Inserido" : "Erro ao inserir");
-        //Console.WriteLine(strAddress);
-        //var addresses = new AddressController().FindAll();
-        //addresses.ForEach(c => Console.WriteLine(c));
+        //Console.WriteLine(new AddressController().Insert(origin) ? "Endereço Inserido" : "Erro ao inserir");
+        //new AddressController().FindAll().ForEach(a => Console.WriteLine(a));
+        //Console.WriteLine("Digite o id do endereço a ser apagado: ");
+        //int del = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+
 
 
         //Client
-        //Console.WriteLine((new ClientController().Insert(client) ? "Cliente Inserido" : "Erro ao inserir"));
+        //Console.WriteLine(new ClientController().Insert(client) ? "Cliente Inserido" : "Erro ao inserir");
         //new ClientController().FindAll().ForEach(c => Console.WriteLine(c));
+        //Console.WriteLine("Digite o id do cliente a ser apagado: ");
+        //int del = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+
 
         //Hotel
         //Console.WriteLine((new HotelController().Insert(hotel) ? "Hotel Inserido" : "Erro ao inserir"));
         //new HotelController().FindAll().ForEach(h => Console.WriteLine(h));
+        //Console.WriteLine("Digite o id do hotel a ser apagado: ");
+        //int del = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+
 
         //Ticket
         //Console.WriteLine((new TicketController().Insert(ticket) ? "Passagem Inserida" : "Erro ao inserir"));
         //new TicketController().FindAll().ForEach(t => Console.WriteLine(t));
+        //Console.WriteLine("Digite o id da passagem a ser apagado: ");
+        //int del = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+
 
         //Package
         //Console.WriteLine((new PackageController().Insert(package) ? "Pacote Inserido" : "Erro ao inserir"));
-        new PackageController().FindAll().ForEach(p => Console.WriteLine(p));
+        //new PackageController().FindAll().ForEach(p => Console.WriteLine(p));
+        //Console.WriteLine("Digite o id do pacote a ser apagado: ");
+        //int del = int.Parse(Console.ReadLine());
+        //Console.WriteLine(new CityController().Delete(del) ? "Deletado com sucesso" : "Erro ao deletar");
+
     }
 }

@@ -24,5 +24,10 @@ namespace projAndre_Turismo.Controllers
         {
             return new ClientService().FindClient(client);
         }
+
+        public bool Delete(int Id)
+        {
+            return new ClientService().Delete(Id);
+        }
     }
 }
